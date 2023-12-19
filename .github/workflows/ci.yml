@@ -1,0 +1,30 @@
+# Copyright (c) 2023, Ayogo Health Inc.  All rights reserved.  Confidential.
+
+name: PR Verification
+
+on:
+  pull_request:
+    branches: ["*"]
+    types: [synchronize, opened, reopened, ready_for_review]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test

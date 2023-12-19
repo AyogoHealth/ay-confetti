@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ay-confetti tests</title>
+    <script src="./testharness.js"></script>
+    <script src="./testcommon.js"></script>
+    <script src="./testharnessreport.js"></script>
+    <style>
+      ay-confetti {
+        visibility: hidden;
+      }
+    </style>
+    <script src="../ay-confetti.js" type="module"></script>
+  </head>
+  <body>
+    <div id="log"></div>
+
+    <ay-confetti id="one"></ay-confetti>
+    <ay-confetti id="two"></ay-confetti>
+    <ay-confetti fading id="three"></ay-confetti>
+
+    <script type="module">
+      test(function () {
+        assert_true(!!window.customElements.get("ay-confetti"));
+      }, "Custom element should be registered");
+
+      test(function () {
+        const el = document.getElementById("one");
+        assert_equals(el.particles, 60);
+
+        el.setAttribute("particles", "30");
+        assert_equals(el.particles, 30);
+      }, "ay-confetti should expose a particles property");
+
+      test(function () {
+        const el = document.getElementById("one");
+
+        //None of the defaults are green.
+        el.setAttribute("color", "green");
+        assert_equals(el.style.getPropertyValue("--confetti-color-1"), "green");
+      }, "ay-confetti should expose a color property");
+
+      for (var i = 1; i <= 6; i++) {
+        test(function () {
+          const el = document.getElementById("one");
+
+          //None of the defaults are purple.
+          el.setAttribute(`color${i}`, "purple");
+          assert_equals(
+            el.style.getPropertyValue(`--confetti-color-${i}`),
+            "purple"
+          );
+        }, `ay-confetti should expose a color${i} property`);
+      }
+
+      promise_test(async (t) => {
+        const el = document.getElementById("two");
+        await waitForNextFrame();
+
+        assert_equals(
+          el.shadowRoot.querySelectorAll(".confetti-piece").length,
+          el.particles
+        );
+      }, "ay-confetti makes same number of confetti-pieces as particles");
+
+      promise_test(async (t) => {
+        const el = document.getElementById("three");
+
+        const originalOpacity = parseFloat(
+          el.shadowRoot.querySelector(".confetti-piece").style.opacity
+        );
+
+        await waitForNextFrame();
+
+        assert_less_than(
+          parseFloat(
+            el.shadowRoot.querySelector(".confetti-piece").style.opacity
+          ),
+          originalOpacity
+        );
+      }, "ay-confetti fades confetti-pieces with fading attribute");
+    </script>
+  </body>
+</html>

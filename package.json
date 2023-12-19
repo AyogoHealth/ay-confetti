@@ -1,0 +1,35 @@
+{
+  "name": "ay-confetti",
+  "version": "1.0.0",
+  "copyright": "Copyright 2014 - 2023 Ayogo Health Inc.",
+  "license": "MIT",
+  "homepage": "https://github.com/AyogoHealth/ay-confetti#readme",
+  "author": "Ayogo Health Inc.",
+  "contributors": [
+    "Darryl Pogue <darryl@dpogue.ca>",
+    "Ian Suda <iansuda@gmail.com>"
+  ],
+  "description": "confetti web component",
+  "main": "ay-confetti.js",
+  "type": "module",
+  "files": [
+    "ay-confetti.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://git@github.com/AyogoHealth/ay-confetti.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AyogoHealth/ay-confetti/issues"
+  },
+  "devDependencies": {
+    "kleur": "^4.1.5",
+    "serve": "^14.2.1",
+    "serve-handler": "^6.1.5",
+    "webdriver": "^8.24.12"
+  },
+  "scripts": {
+    "start": "serve",
+    "test": "node test/testrunner.js"
+  }
+}

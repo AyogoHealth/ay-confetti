@@ -9,9 +9,16 @@ on:
 
 jobs:
   test:
-    name: Test
-    runs-on: ubuntu-latest
+    name: Test ${{ matrix.test.browser }}
+    runs-on: ${{ matrix.test.os }}
     timeout-minutes: 5
+    strategy:
+      matrix:
+        test:
+          - { os: ubuntu-latest, browser: chrome }
+          - { os: ubuntu-latest, browser: firefox }
+          - { os: macos-latest, browser: safari }
+          - { os: windows-latest, browser: edge }
 
     steps:
       - uses: actions/checkout@v4
@@ -27,4 +34,4 @@ jobs:
         run: npm ci
 
       - name: Run Tests
-        run: npm test
+        run: npm test -- --browser=${{ matrix.test.browser }}

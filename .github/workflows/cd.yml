@@ -38,6 +38,6 @@ jobs:
         run: |
           mkdir -p _site && cp index.html ay-confetti.js _site
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v3

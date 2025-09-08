@@ -23,7 +23,7 @@
     "url": "https://github.com/AyogoHealth/ay-confetti/issues"
   },
   "devDependencies": {
-    "serve": "^14.2.1",
+    "serve": "^14.2.5",
     "wpt-test": "^1.0.2"
   },
   "scripts": {

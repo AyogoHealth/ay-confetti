@@ -94,6 +94,7 @@ export class AyConfettiElement extends HTMLElement {
             transform-origin: 50% 50%;
             top: 0;
             left: 0;
+            will-change: transform, opacity;
         }
 
         .confetti-1 { background-color: var(--confetti-color-1, blue); }

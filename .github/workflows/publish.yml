@@ -33,14 +33,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      - name: Use Node.js latest
+      - name: Use Node.js
         uses: actions/setup-node@v6
         with:
-          cache: npm
+          node-version: "lts/*"
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Install latest npm
-        run: npm install -g npm@latest
 
       - name: npm install and test
         run: npm cit

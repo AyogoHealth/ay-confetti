@@ -17,27 +17,33 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v6
+
       - uses: actions/setup-node@v6
         with:
-          node-version: latest
-          cache: npm
+          node-version: "lts/*"
+
       - name: Install dependencies
         run: npm ci
+
       - name: Run Tests
         run: npm test
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
+    if: github.repository == 'AyogoHealth/ay-confetti'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
+
       - name: Create Site folder
         run: |
           mkdir -p _site && cp index.html ay-confetti.js _site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
